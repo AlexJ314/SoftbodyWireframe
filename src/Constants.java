@@ -1,3 +1,9 @@
+/** 
+ * @file Constants.java
+ * @brief Defines editable constants for the program
+ * @author Alex Johnson
+ */
+
 public class Constants {
   public static final int frameWidth = 1000;
   public static final int frameHeight = 600;

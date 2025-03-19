@@ -1,3 +1,9 @@
+/** 
+ * @file Point3.java
+ * @brief A point in 3d space
+ * @author Alex Johnson
+ */
+
 public class Point3 {
   private double x, y, z;
   private Connection[] connections;

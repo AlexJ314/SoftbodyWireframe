@@ -1,3 +1,9 @@
+/** 
+ * @file WireframeActions.java
+ * @brief Overwritten class for sending events to the wireframe
+ * @author Alex Johnson
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,6 +14,7 @@ public class WireframeActions implements ActionListener {
     this.wireframe = wireframe;
   }
 
+  @Override
   public void actionPerformed(ActionEvent ae) {
     System.out.println("Overwrite me");
   }

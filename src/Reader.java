@@ -1,3 +1,9 @@
+/** 
+ * @file Reader.java
+ * @brief Read object file to wireframe
+ * @author Alex Johnson
+ */
+
 import java.util.Scanner;
 import java.util.*;
 import java.io.*;

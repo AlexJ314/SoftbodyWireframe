@@ -1,4 +1,4 @@
-Compile with `clear; del *.class; javac -Xlint Main.java` inside of `src`
+Compile with `clear; del *.class; javac Main.java` inside of `src`
 
 
 

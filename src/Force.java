@@ -1,3 +1,9 @@
+/** 
+ * @file Force.java
+ * @brief Calculates the force between two points
+ * @author Alex Johnson
+ */
+
 public class Force {
   private double x, y, z;
   private double K = Constants.linearForce;

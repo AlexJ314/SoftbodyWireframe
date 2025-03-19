@@ -1,3 +1,9 @@
+/** 
+ * @file Main.java
+ * @brief Reads in object file, creates a simulation screen, and ticks the simulation
+ * @author Alex Johnson
+ */
+
 import java.io.*;
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;

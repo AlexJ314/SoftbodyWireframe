@@ -1,3 +1,9 @@
+/** 
+ * @file Screen.java
+ * @brief Creates a window with the simulation display and control panel
+ * @author Alex Johnson
+ */
+
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;

@@ -1,3 +1,9 @@
+/** 
+ * @file DisplayMouse.java
+ * @brief Intercepts some mouse actions and turns them into display functions
+ * @author Alex Johnson
+ */
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseWheelEvent;

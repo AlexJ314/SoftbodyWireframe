@@ -1,3 +1,9 @@
+/** 
+ * @file Vector3.java
+ * @brief A vector in 3d space
+ * @author Alex Johnson
+ */
+
 public class Vector3 {
   private double x, y, z, magnitude;
 

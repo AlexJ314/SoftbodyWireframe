@@ -1,3 +1,9 @@
+/** 
+ * @file Wireframe.java
+ * @brief A collection of points and edges
+ * @author Alex Johnson
+ */
+
 import java.io.*;
 
 public class Wireframe {

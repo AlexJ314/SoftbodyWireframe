@@ -1,3 +1,9 @@
+/** 
+ * @file Selection.java
+ * @brief Creates a selection box
+ * @author Alex Johnson
+ */
+
 public class Selection {
   private Display display;
   private int startX = 0;

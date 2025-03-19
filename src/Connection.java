@@ -1,3 +1,9 @@
+/** 
+ * @file .java
+ * @brief 
+ * @author Alex Johnson
+ */
+
 public class Connection {
   private double length;
   private Point3 point;

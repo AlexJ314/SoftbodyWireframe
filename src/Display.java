@@ -1,3 +1,9 @@
+/** 
+ * @file Display.java
+ * @brief How to display the simulation to the screen
+ * @author Alex Johnson
+ */
+
 import java.awt.Color;
 import javax.swing.JPanel;
 import java.awt.Graphics2D;

@@ -1,3 +1,10 @@
+/** 
+ * @file ProjectedPoint.java
+ * @brief NOT USED <br>
+ * Record how a 3d point was projected onto the screen
+ * @author Alex Johnson
+ */
+
 public class ProjectedPoint implements Comparable<ProjectedPoint> {
   private Point3 point;
   private Vector3 vector;

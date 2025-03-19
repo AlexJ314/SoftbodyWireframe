@@ -1,3 +1,9 @@
+/** 
+ * @file DisplayActions.java
+ * @brief Overwritten class for sending events to the display
+ * @author Alex Johnson
+ */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +20,7 @@ public class DisplayActions implements ActionListener {
     this.display = dm.getDisplay();
   }
 
+  @Override
   public void actionPerformed(ActionEvent ae) {
     System.out.println("Overwrite me");
   }

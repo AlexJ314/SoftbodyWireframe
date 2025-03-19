@@ -1,3 +1,10 @@
+/** 
+ * @file ArguedCallable.java
+ * @brief NOT USED <br>
+ * Allows a called thread to have some parameters
+ * @author Alex Johnson
+ */
+
 import java.util.concurrent.Callable;
 
 public abstract class ArguedCallable implements Callable<Object> {

@@ -1,3 +1,9 @@
+/** 
+ * @file Edge.java
+ * @brief The edge between two points
+ * @author Alex Johnson
+ */
+
 public class Edge {
   private double length;
   private Point3 pointA, pointB;

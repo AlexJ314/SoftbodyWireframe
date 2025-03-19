@@ -1,3 +1,10 @@
+/** 
+ * @file Face.java
+ * @brief NOT FULLY IMPLEMENTED <br>
+ * A collection of points and edges forms a face
+ * @author Alex Johnson
+ */
+
 public class Face {
   private Point3[] points;
   private int pointCount = 0;
