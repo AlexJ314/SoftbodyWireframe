@@ -3,7 +3,7 @@ public class Constants {
   public static final int frameHeight = 600;
   public static final int panelWidth = 1000;
   public static final int panelHeight = 500;
-  public static final int delay = 4;
+  public static final int delay = 3;
   public static final int lineScale = 20;
   public static final int pointSize = 4;
   public static final double forceCoeff = 0.05;
