@@ -9,6 +9,13 @@ Run with `java Main <path-to-file>`
 
 
 
+You may create a torus by running `largertorus.sh <r> <R>` where:
+  `<r>` is the circumference of the minor radius
+  `<R>` is the circumference of the major radius
+  The torus will be formed of `<r> * <R>` quadrilaterals
+
+
+
 Controls (`Screen.java` and `DisplayManager.mouseDragged(MouseEvent e).java`):
   Mouse left or right click:
     Set active point
