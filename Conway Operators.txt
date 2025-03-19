@@ -1,0 +1,108 @@
+Define d, t, k=dtdX, a, j=daX, e=aaX, s=dgX, g=dsX, b=taX, o=deX=jjX, m=dbX=kjX, z=dkX, n=dtX
+  (Operations are preformed right to left)
+  d: each n-vertex becomes a n-face
+  t: each n-vertex becomes a n-face and original edges are kept
+  a: each edge becomes a vertex
+  Pick one:
+    s: eX, then adding an edge across the diagonal of each new 4-face
+      Can't easily define face
+      Add new edges with same handedness
+    g: k but new edges connect to the 1/3 points on the edges rather than the vertices.
+      oX
+
+Platonic solids:
+  Tetrahedron: T=Y3
+  Octahedron: O=aY3=A3=dP4
+  Cube: C=jY3=dA3=P4
+  Icosahedron: I=sY3=k5A5
+  Dodecahedron: D=gY3=t5dA5
+  Base n Prism: Pn
+  Base n Anti-prism: An (2n triangles instead of n squares connect the faces)
+  Base n Pyramid: Yn
+
+
+Dual: d
+  The dual of a polyheron has a vertex for each face, and a face for each vertex, of the original polyhedron, e.g., dC=O.
+  Duality is an operation of order two, meaning for any polyhedron X, ddX=X, e.g., ddC=dO=C.
+
+Truncate: t (all vertices),  tn (just n-fold vertices)
+  Truncating a polyhedron cuts off each vertex, producing a new n-sided face for each n-fold vertex.
+  The faces of the original polyhedron still appear, but have twice as many sides,
+  e.g., the tC has six octagonal sides corresponding to the six squares of the C,
+  and eight triangles corresponding to the cube's eight vertices.
+
+Kis: k (all faces), kn (just n-sided faces)
+  The kis operation divides each n-sided face into n triangles.
+  A new vertex is added in the center of each face,
+  e.g., the kiscube, kC, has 24 triangular faces.
+  The k operator is dual to t, meaning kX=dtdX.
+
+Ambo: a
+  The ambo operation can be thought of as truncating to the edge midpoints.
+  It produces a polyhedron, aX, with one vertex for each edge of X.
+  There is one face for each face of X and one face for each vertex of X.
+  Notice that for any X, the vertices of aX are all 4-fold, and that aX=adX.
+  If two mutually dual polyhedra are in "dual position," with all edges tangent to a common sphere,
+  the ambo of either is their intersection.  For example aC=aO is the cuboctahedron.
+
+Join: j
+  The join operator is dual to ambo, so jX=dadX=daX.
+  jX is like kX without the original edges of X.
+  It produces a polyhedron with one 4-sided face for each edge of X.
+  For example, jC=jO is the rhombic dodecahedron. 
+
+Expand: e
+  This is Mrs. Stott's expansion operation.
+  Each face of X is separated from all its neighbors and reconnected with a new 4-sided face,
+  corresponding to an edge of X.
+  An n-gon is then added to connect the 4-sided faces at each n-fold vertex.
+  For example, eC is the rhombicuboctahedron.
+  It turns out that eX=aaX and so eX=edX.
+
+Snub: s
+  The snub operation produces the snub cube, sC, from C.
+  It can be thought of as eC followed by the operation of slicing each of the new 4-fold faces along a diagonal into two triangles.
+  With a consistent handedness to these cuts, all the vertices of sX are 5-fold.
+  Note that sX=sdX.
+
+Gyro: g
+  The dual operation to s is g. gX=dsdX=dsX, with all 5-sided faces.
+  The gyrocube, gC=gO="pentagonal icositetrahedron," is dual to the snub cube.
+  g is like k but with the new edges connecting the face centers to the 1/3 points on the edges rather than the vertices.
+
+Bevel: b
+  The bevel operation can be defined by bX=taX.
+  bC is the truncated cuboctahedron.
+
+Ortho: o
+  Dual to e, oX=deX=jjX.
+  oC is the trapezoidal icositetrahedron, with 24 kite-shaped faces.
+  oX has the effect of putting new vertices in the middle of each face of X and connecting them,
+  with new edges, to the edge midpoints of X.
+
+Meta: m
+  Dual to b, mX=dbX=kjX.
+  mC has 48 triangular faces.
+  m is like k and o combined;
+  new edges connect new vertices at the face centers to the old vertices and new vertices at the edge midpoints.
+  mX=mdX.  mC is the "hexakis octahedron."
+
+Reflect: r (not included)
+  Changes a left-handed solid to right handed, or vice versa, but has no effect on a reflexible solid.
+  So rC=C, but compare sC and rsC.
+  (This and the next are my own extensions, not sanctioned by Conway.)
+
+Propellor: p (not included)
+  Makes each n-gon face into a "propellor" of an n-gon surrounded by n quadrilaterals,
+  e.g., pT is the tetrahedrally stellated icosahedron. Try pkD and pt6kT.
+  p is a self-dual operation, i.e., dpdX=pX and dpX=pdX,
+  and p also commutes with a and j, i.e., paX=apX.
+
+Zip: z
+  dual of kis
+
+Needle: n
+  dual of truncate
+
+Chamfer: c (not included)
+  Each edge becomes a hexagon

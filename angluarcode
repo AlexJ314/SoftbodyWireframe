@@ -1,0 +1,292 @@
+  public void angular(Point3 midpoint, Connection ca, Connection cb) {
+    Point3 a = ca.getPoint();
+    Point3 b = cb.getPoint();
+    Vector3 va = new Vector3(a.getX() - midpoint.getX(), a.getY() -
+      midpoint.getY(), a.getZ() - midpoint.getZ());
+    Vector3 vb = new Vector3(b.getX() - midpoint.getX(), b.getY() -
+      midpoint.getY(), b.getZ() - midpoint.getZ());
+    double al = ca.getLength();
+    double bl = cb.getLength();
+    double currentAngle = (Math.PI - va.angle(vb));
+    double fa = A*currentAngle/al;
+    double fb = A*currentAngle/bl;
+
+    Vector3 o = va.ortho(vb);
+    Vector3 ea = o.ortho(va).norm();
+    Vector3 eb = o.ortho(vb).norm();
+
+    Vector3 ean = ea.mul(-1);
+    Vector3 ebn = eb.mul(-1);
+
+    double eaAngle = (Math.PI - ea.angle(vb));
+    double ebAngle = (Math.PI - eb.angle(va));
+    double eanAngle = (Math.PI - ean.angle(vb));
+    double ebnAngle = (Math.PI - ebn.angle(va));
+
+    if (eanAngle > eaAngle) {
+      ea = ean;
+      eaAngle = eanAngle;
+    }
+    if (ebnAngle > ebAngle) {
+      eb = ebn;
+      ebAngle = ebnAngle;
+    }
+    if (currentAngle > eaAngle) {
+      fa = 0;
+    }
+    if (currentAngle > ebAngle) {
+      fb = 0;
+    }
+
+    a.getForce().addX(fa*ea.getX());
+    a.getForce().addY(fa*ea.getY());
+    a.getForce().addZ(fa*ea.getZ());
+    b.getForce().addX(fb*eb.getX());
+    b.getForce().addY(fb*eb.getY());
+    b.getForce().addZ(fb*eb.getZ());
+  }
+  
+  public Vector3 get3d(double sx, double sy) {
+    sx -= (7+this.width/2+this.panX);
+    sy -= (30+this.height/2+this.panY);
+    double vx = mid.getX();
+    double vy = mid.getY();
+    double vz = mid.getZ();
+    Vector3 X = this.x.mul(Constants.lineScale);
+    Vector3 Y = this.y.mul(Constants.lineScale);
+    if (X.getX() != 0) {  // + ? ?, ? ? ?
+      sx /= X.getX();
+      X = X.mul(1/X.getX());  // 1 ? ?, ? ? ?
+      if (Y.getY() != 0) {  // 1 ? ?, + ? ?
+        sy -= sx*Y.getX();
+        Y = Y.sub(X.mul(Y.getX()));  // 1 ? ?, 0 ? ?
+      }  // 1 ? ?, 0 ? ?
+      if (Y.getY() != 0) {  // 1 ? ?, 0 + ?
+        sy /= Y.getY();
+        Y = Y.mul(1/Y.getY());  // 1 ? ?, 0 1 ?
+        vy = sy - Y.getZ()*vz;
+        vx = sx - X.getY()*vy - X.getZ()*vz;
+      } else {  // 1 ? ?, 0 0 ?
+        if (Y.getZ() != 0) {  // 1 ? ?, 0 0 +
+          vz = sy/Y.getZ();
+        }
+        vx = sx - X.getY()*vy - X.getZ()*vz;
+      }
+    } else { // 0 ? ?, ? ? ?
+      if (Y.getX() != 0) {  // 0 ? ?, + ? ?
+        sy /= Y.getY();
+        Y = Y.mul(1/Y.getY());  // 0 ? ?, 1 ? ?
+        if (X.getY() != 0) {  // 0 + ?, 1 ? ?
+          sx /= X.getY();
+          X = X.mul(1/X.getY());  // 0 1 ?, 1 ? ?
+          vy = sx - X.getZ()*vz;
+          vx = sy - Y.getY()*vy - Y.getZ()*vz;
+        } else {  // 0 0 ?, 1 ? ?
+          if (X.getZ() != 0) {  // 0 0 +, 1 ? ?
+            vz = sx/X.getZ();
+          }
+          vx = sy - Y.getY()*vy - Y.getZ()*vz;
+        }
+      } else { // 0 ? ?, 0 ? ?
+        if (X.getY() != 0) {  // 0 + ?, 0 ? ?
+          sx /= X.getY();
+          X = X.mul(1/X.getY());  // 0 1 ?, 0 ? ?
+          if (Y.getY() != 0) {  // 0 1 ?, 0 + ?
+            sy -= sx*Y.getY();
+            Y = Y.sub(X.mul(Y.getY()));  // 0 1 ?, 0 0 ?
+          }  // 0 1 ?, 0 0 ?
+          if (Y.getZ() != 0) {  // 0 1 ?, 0 0 +
+            vz = sy/Y.getZ();
+          }
+          vy = sx - X.getZ()*vz;
+        } else {  // 0 0 ?, 0 ? ?
+          if (Y.getY() != 0) {  // 0 0 ?, 0 + ?
+            sy /= Y.getY();
+            Y = Y.mul(1/Y.getY());  // 0 0 ?, 0 1 ?
+            if (X.getZ() != 0) {  // 0 0 +, 0 1 ?
+              vz = sx/X.getZ();
+            }
+            vy = sy - Y.getZ()*vz;
+          } else {  // 0 0 ?, 0 0 ?
+            if (X.getZ() != 0) {  // 0 0 +, 0 0 ?
+              vz = sx/X.getZ();
+            } else {  // 0 0 0, 0 0 ?
+              if (Y.getZ() != 0) {  // 0 0 0, 0 0 +
+                vz = sy/Y.getZ();
+              } else {  // 0 0 0, 0 0 0
+                // choose midpoint
+              }
+            }
+          }
+        }
+      }
+    }
+    System.out.println("o2"+new Vector3(vx, vy, vz)+"\n");
+    return new Vector3(vx, vy, vz);
+  }
+  
+  public Vector3 get3d(double sx, double sy, double sz) {
+    sx -= (7+this.width/2+this.panX);
+    sy -= (30+this.height/2+this.panY);
+    Vector3 mid = this.wireframe.midpoint();
+    double vx = mid.getX();
+    double vy = mid.getY();
+    double vz = mid.getZ();
+    Vector3 X = this.x.mul(Constants.lineScale);
+    Vector3 Y = this.y.mul(Constants.lineScale);
+    Vector3 Z = this.z.mul(Constants.lineScale);
+    if (X.getX() != 0) {  // + ? ?, ? ? ?, ? ? ?
+      sx /= X.getX();
+      X = X.mul(1/X.getX());  // 1 ? ?, ? ? ?, ? ? ?
+      if (Y.getY() != 0) {  // 1 ? ?, + ? ?, ? ? ?
+        sy -= sx*Y.getX();
+        Y = Y.sub(X.mul(Y.getX()));  // 1 ? ?, 0 ? ?, ? ? ?
+      }  // 1 ? ?, 0 ? ?
+      if (Y.getY() != 0) {  // 1 ? ?, 0 + ?, ? ? ?
+        sy /= Y.getY();
+        Y = Y.mul(1/Y.getY());  // 1 ? ?, 0 1 ?, ? ? ?
+        sz -= sx*Z.getX();
+        Z = Z.sub(X.mul(Z.getX()));  // 1 ? ?, 0 1 ?, 0 ? ?
+        sz -= sy*Z.getY();
+        Z = Z.sub(Y.mul(Z.getY()));  // 1 ? ?, 0 1 ?, 0 0 ?
+        if (Z.getZ() != 0) {  // 1 ? ?, 0 1 ?, 0 0 +
+          vz = sz/Z.getZ();
+        }
+        vy = sy - Y.getZ()*vz;
+        vx = sx - X.getY()*vy - X.getZ()*vz;
+      } else {  // 1 ? ?, 0 0 ?, ? ? ?
+        if (Y.getZ() != 0) {  // 1 ? ?, 0 0 +, ? ? ?
+          sy /= Y.getZ();
+          Y = Y.mul(1/Y.getZ());  // 1 ? ?, 0 0 1, ? ? ?
+          sz -= sx*Z.getX();
+          Z = Z.sub(X.mul(Z.getX()));  // 1 ? ?, 0 0 1, 0 ? ?
+          if (Z.getY() != 0) {  // 1 ? ?, 0 0 1, 0 + ?
+            sz /= Z.getY();
+            Z = Z.mul(1/Z.getY());  // 1 ? ?, 0 0 1, 0 1 ?
+          }  // 1 ? ?, 0 0 1, 0 1 ?
+          vz = sy;
+          vy = sz - Z.getZ()*vz;
+          vx = sx - X.getY()*vy - X.getZ()*vz;
+        } else {  // 1 ? ?, 0 0 0, 0 0 ?
+          if (Z.getZ() != 0) {  // 1 ? ?, 0 0 0, 0 0 +
+            vz = sz/Z.getZ();
+          }
+          vx = sx - X.getY()*vy - X.getZ()*vz;
+        }
+      }
+    } else { // 0 ? ?, ? ? ?, ? ? ?
+      if (Y.getX() != 0) { // 0 ? ?, + ? ?, ? ? ?
+        sy /= Y.getY();
+        Y = Y.mul(1/Y.getY());  // 0 ? ?, 1 ? ?, ? ? ?
+        if (X.getY() != 0) {  // 0 + ?, 1 ? ?, ? ? ?
+          sx /= X.getY();
+          X = X.mul(1/X.getY());  // 0 1 ?, 1 ? ?, ? ? ?
+          sz -= sy*Z.getX();
+          Z = Z.sub(Y.mul(Z.getX()));  // 0 1 ?, 1 ? ?, 0 ? ?
+          sz -= sx*Z.getX();
+          Z = Z.sub(X.mul(Z.getX()));  // 0 1 ?, 1 ? ?, 0 0 ?
+          if (Z.getZ() != 0) {  // 0 1 ?, 1 ? ?, 0 0 +
+            vz = sz/Z.getZ();
+          }
+          vy = sx - X.getZ()*vz;
+          vx = sy - Y.getY()*vy - Y.getZ()*vz;
+        } else {  // 0 0 ?, 1 ? ?, ? ? ?
+          if (X.getZ() != 0) {  // 0 0 +, 1 ? ?, ? ? ?
+            sx /= X.getZ();
+            X = X.mul(1/X.getZ());  // 0 0 1, 1 ? ?, ? ? ?
+            vz = sx;
+            sz -= sy*Z.getX();
+            Z = Z.sub(Y.mul(Z.getX()));  // 0 0 1, 1 ? ?, 0 ? ?
+            if (Z.getY() != 0) {  // 0 0 1, 1 ? ?, 0 + ?
+              sz /= Z.getY();
+              Z = Z.mul(1/Z.getY());  // 0 0 1, 1 ? ?, 0 1 ?
+              vy = sz - Z.getZ()*vz;
+            }
+            vx = sy - Y.getY()*vy - Y.getZ()*vz;
+          } else {  // 0 0 0, 1 ? ?, ? ? ?
+            sz -= sy*Z.getX();
+            Z = Z.sub(Y.mul(Z.getX()));  // 0 0 0, 1 ? ?, 0 ? ?
+            if (Z.getY() != 0) {  // 0 0 0, 1 ? ?, 0 + ?
+              sz /= Z.getY();
+              Z = Z.mul(1/Z.getY());  // 0 0 0, 1 ? ?, 0 1 ?
+              vy = sz - Z.getZ()*vz;
+            } else {  // 0 0 0, 1 ? ?, 0 0 ?
+              if (Z.getZ() != 0) {
+                sz /= Z.getZ();
+                Z = Z.mul(1/Z.getZ());  // 0 0 0, 1 ? ?, 0 0 1
+                vz = sz;
+              }
+            }
+          }
+          vx = sy - Y.getY()*vy - Y.getZ()*vz;
+        }
+      } else { // 0 ? ?, 0 ? ?, ? ? ?
+        if (X.getY() != 0) {  // 0 + ?, 0 ? ?, ? ? ?
+          sx /= X.getY();
+          X = X.mul(1/X.getY());  // 0 1 ?, 0 ? ?, ? ? ?
+          if (Y.getY() != 0) {  // 0 1 ?, 0 + ?, ? ? ?
+            sy -= sx*Y.getY();
+            Y = Y.sub(X.mul(Y.getY()));  // 0 1 ?, 0 0 ?, ? ? ?
+          }  // 0 1 ?, 0 0 ?, ? ? ?
+          if (Y.getZ() != 0) {  // 0 1 ?, 0 0 +, ? ? ?
+            sy /= Y.getZ();
+            Y = Y.mul(1/Y.getZ());  // 0 1 ?, 0 0 1, ? ? ?
+            vz = sy;
+          }
+          vy = sx - X.getZ()*vz;
+          if (Z.getX() != 0) {  // 0 1 ?, 0 0 ?, + ? ?
+            sz /= Z.getX();
+            Z = Z.mul(1/Z.getX());  // 0 1 ?, 0 0 ?, 1 ? ?
+            vx = sz - Z.getY()*vy - Z.getZ()*vz;
+          }
+        } else {  // 0 0 ?, 0 ? ?, ? ? ?
+          if (Y.getY() != 0) {  // 0 0 ?, 0 + ?, ? ? ?
+            sy /= Y.getY();
+            Y = Y.mul(1/Y.getY());  // 0 0 ?, 0 1 ?, ? ? ?
+            if (X.getZ() != 0) {  // 0 0 +, 0 1 ?, ? ? ?
+              sx /= X.getZ();
+              X = X.mul(1/X.getZ());  // 0 0 1, 0 1 ?, ? ? ?
+              vz = sx;
+            }
+            vy = sy - Y.getZ()*vz;
+            if (Z.getX() != 0) {  // 0 1 ?, 0 0 ?, + ? ?
+              sz /= Z.getX();
+              Z = Z.mul(1/Z.getX());  // 0 1 ?, 0 0 ?, 1 ? ?
+              vx = sz - Z.getY()*vy - Z.getZ()*vz;
+            }
+          } else {  // 0 0 ?, 0 0 ?, ? ? ?
+            if (X.getZ() != 0) {  // 0 0 +, 0 0 ?, ? ? ?
+              sx /= X.getZ();
+              X = X.mul(X.getZ());  // 0 0 1, 0 0 ?, ? ? ?
+              vz = sx;
+            } else {  // 0 0 0, 0 0 ?, ? ? ?
+              if (Y.getZ() != 0) {  // 0 0 0, 0 0 +, ? ? ?
+                sy /= Y.getZ();
+                Y = Y.mul(1/Y.getZ());
+                vz = sy;
+              }
+            }
+            if (Z.getX() != 0) {  // 0 0 ?, 0 0 ?, + ? ?
+              sz /= Z.getX();
+              Z = Z.mul(1/Z.getX());  // 0 0 ?, 0 0 ?, 1 ? ?
+              vx = sz - Z.getY()*vy - Z.getZ()*vz;
+            } else {  // 0 0 ?, 0 0 ?, 0 ? ?
+              if (Z.getY() != 0) {  // 0 0 ?, 0 0 ?, 0 + ?
+                sz /= Z.getY();
+                Z = Z.mul(1/Z.getY());
+                vy = sz;
+              } else {  // 0 0 ?, 0 0 ?, 0 0 ?
+                if (X.getZ() == 0 && Y.getZ() == 0 && Z.getZ() != 0) {
+                  sz /= Z.getZ();
+                  Z = Z.mul(1/Z.getZ());
+                  vz = sz;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return new Vector3(vx, vy, vz);
+  }
+  
