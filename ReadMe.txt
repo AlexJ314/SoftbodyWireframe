@@ -1,8 +1,10 @@
-Compile with `clear; del *.class; javac -Xlint Main.java`
+Compile with `clear; del *.class; javac -Xlint Main.java` inside of `src`
 
 
 Run with `java Main <path-to-file>`
   or `java Main` and then enter the path to a file to create or edit
+  For example:
+    `java Main obj/demo` will open the `demo` object in the `obj` folder
 
 
 
